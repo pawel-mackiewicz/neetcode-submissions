@@ -1,0 +1,30 @@
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # iterate for the whole grid
+        # if found island islands++ dfs and mark all as water
+
+        islands = 0
+        ROWS, COLS = len(grid), len(grid[0])
+
+        def dfs(r,c):
+            if (
+                r < 0 or c < 0
+                or r == ROWS or c == COLS
+                or grid[r][c] == "0"
+                ):
+                return
+            else:
+                grid[r][c] = "0"
+
+            dfs(r + 1, c)
+            dfs(r - 1, c)
+            dfs(r, c + 1)
+            dfs(r, c - 1)
+
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == "1":
+                    dfs(r,c)
+                    islands += 1
+
+        return islands
