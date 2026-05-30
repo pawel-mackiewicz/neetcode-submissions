@@ -1,0 +1,22 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        start_color = image[sr][sc]
+        ROWS, COLS = len(image), len(image[0])
+
+        def dfs(grid, r, c):
+            if (min(r,c) < 0 
+                or r == ROWS or c == COLS 
+                or grid[r][c] == color
+                or grid[r][c] != start_color):
+                return
+
+            grid[r][c] = color
+
+            dfs(grid, r + 1, c)
+            dfs(grid, r - 1, c)
+            dfs(grid, r, c + 1)
+            dfs(grid, r, c - 1)
+
+        dfs(image, sr, sc)
+
+        return image
